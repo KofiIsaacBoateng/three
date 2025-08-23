@@ -71,8 +71,32 @@ nonEnvGroup.position.y = 1.5;
 envGroup.position.y = -1.5;
 basicCubeMesh.position.x = -2;
 depthTorusMesh.position.x = 2;
+phongCubeMesh.position.x = -2;
+standardTorusMesh.position.x = 2;
+physicalTorusKnotMesh.position.y = -3;
 
 scene.add(nonEnvGroup, envGroup); // add groups to scene
+scene.background = new THREE.Color(0x000f);
+
+/** lights for environment reacting meshes */
+// ambient light
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+scene.add(ambientLight);
+
+// spot light
+const spotLight = new THREE.SpotLight(0xfff, 30, 0, Math.PI / 2, 0, 2);
+spotLight.position.z = 5;
+// scene.add(spotLight);
+
+// point ligtht
+const pointLight = new THREE.PointLight(0xfff, 30, 0);
+pointLight.position.z = 5;
+scene.add(pointLight);
+
+// directional light
+const directionalLight = new THREE.DirectionalLight(0xfff, 30);
+directionalLight.position.z = 5;
+// scene.add(directionalLight);
 
 // initialize a camera
 const camera = new THREE.PerspectiveCamera(
@@ -86,7 +110,7 @@ const orbitals = new OrbitControls(camera, canvas);
 orbitals.autoRotate = true;
 orbitals.enableDamping = true;
 
-camera.position.z = 25;
+camera.position.z = 50;
 camera.position.y = -1;
 
 // initialize render
