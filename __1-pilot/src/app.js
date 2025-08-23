@@ -10,7 +10,7 @@ const scene = new THREE.Scene();
 // add objects to the scene (mesh or a group)
 const cube = new THREE.BoxGeometry(1, 1, 1); // cube
 const sphere = new THREE.SphereGeometry(0.8, 30, 30);
-const torus = new THREE.TorusGeometry(0.5, 0.2, 16, 100);
+const torus = new THREE.TorusGeometry(0.5, 0.2, 16, 32);
 const torusKnot = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 100);
 
 // non-environment reacting materials
@@ -27,20 +27,23 @@ const meshDepthMaterial = new THREE.MeshBasicMaterial({
 });
 
 // Environment Reacting Materials
-const lambertMaterial = new THREE.MeshLambertMaterial({ color: 0x049ef4 });
+const lambertMaterial = new THREE.MeshLambertMaterial({
+  color: 0x049ef4,
+  wireframe: true,
+});
 const meshPhongMaterial = new THREE.MeshPhongMaterial({
   color: 0x049ef4,
-  shininess: 100,
+  shininess: 1000,
 });
 const standardMaterial = new THREE.MeshStandardMaterial({
   color: 0x049ef4,
-  metalness: 0.8,
+  metalness: 0.5,
   roughness: 0.1,
 });
 const physicalMaterial = new THREE.MeshPhysicalMaterial({
   color: 0x049ef4,
   metalness: 1,
-  roughness: 0.3,
+  roughness: 0.1,
   reflectivity: 1,
   clearcoat: 1,
 });
@@ -73,28 +76,28 @@ basicCubeMesh.position.x = -2;
 depthTorusMesh.position.x = 2;
 phongCubeMesh.position.x = -2;
 standardTorusMesh.position.x = 2;
-physicalTorusKnotMesh.position.y = -3;
+lambertSphereMesh.position.y = -2;
 
 scene.add(nonEnvGroup, envGroup); // add groups to scene
 scene.background = new THREE.Color(0x000f);
 
 /** lights for environment reacting meshes */
 // ambient light
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
 // spot light
-const spotLight = new THREE.SpotLight(0xfff, 30, 0, Math.PI / 2, 0, 2);
+const spotLight = new THREE.SpotLight(0xfff, 60, 0, Math.PI / 2, 0, 2);
 spotLight.position.z = 5;
 // scene.add(spotLight);
 
 // point ligtht
-const pointLight = new THREE.PointLight(0xfff, 30, 0);
+const pointLight = new THREE.PointLight(0xfff, 60, 0);
 pointLight.position.z = 5;
 scene.add(pointLight);
 
 // directional light
-const directionalLight = new THREE.DirectionalLight(0xfff, 30);
+const directionalLight = new THREE.DirectionalLight(0xfff, 60);
 directionalLight.position.z = 5;
 // scene.add(directionalLight);
 
@@ -135,3 +138,57 @@ renderLoop();
 
 const axesHelper = new THREE.AxesHelper(3);
 scene.add(axesHelper);
+
+/**** Three js fundamentals
+ * renderer -->
+ * camera -->
+ * scene -->
+ * groups + mesh
+ * groups -> mesh + mesh + mesh ... -->
+ * materials + geometry
+ * materials -> texture
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Custom geometry - buffer geometry
+ * *** create BufferGeometry
+ * *** create vertices using float32array js class
+ * *** new BufferAttribute(vertices, size)
+ * *** geometry.setAttribute("position", bufferAttribute)
+ *
+ * Primitive geometry by three (check docs) ... done!
+ *
+ * Material vs Texture
+ * MATERIALS -> env reacting vs non-env reacting materials
+ * *** env reacting (MeshBasicMaterial, MeshMatCapMaterial, MeshDepthMaterial) ... done
+ * *** non-env reacting (MeshLambertMaterial, MeshPhongMaterial, MeshStandardMaterial, MeshPhysicalMaterial)
+ * *** *** *** ATTACK ONE AT A TIME
+ * *** color, transparent, opacity, doubleSide constant, fog
+ *
+ * Lambert material -> light(AmbientLight, takes color and 1 || PointLight(...)) ... done
+ * Phong material -> ... + shininess ... done
+ * Standard material (physically based rendering) --> shininess, roughness ... done
+ * Physical material (...similar) --> metalness, roughness, reflectivity, clearCoat ... done
+ *
+ */
+
+/** TODO
+ * TEXTURE
+ * *** scene.children to add similar props to each child (make sure to monitor effects on lights)
+ * *** alt:> just great a group for items you want to transform.
+ * *** freepbr.com/materials
+ *
+ * *** Texture Loader --> initialize loader, initialize texture (textureLoader.load('url'))
+ * *** Map material to texture!
+ *
+ * *** textures zoom beyond a limit shows blurry pixels. REPEAT textures to avoid this.
+ * *** texture.repeat.set(#, #)
+ * *** texture.wrapS = THREE.RepeatWrapping || MirroredRepeatWrapping (horizontally)
+ * *** texture.wrapT = THREE.RepeatWrapping (vertically)
+ *
+ * *** texture Offset --> (x, y)
+ *
+ * *** Texture Mapping --> how three.js determines which texture is for which material
+ * *** UV mapping -> three.js maps entire texture to each face
+ * *** PBR mapping -> material.(map, roughnessMap, metallicMap, heightMap, normalMap, AOMap,)
+ */
