@@ -8,19 +8,71 @@ const canvas = document.querySelector(".threeCanvas");
 const scene = new THREE.Scene();
 
 // add objects to the scene (mesh or a group)
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 1); // geometry
-const material = new THREE.MeshBasicMaterial({
-  color: "turquoise",
+const cube = new THREE.BoxGeometry(1, 1, 1); // cube
+const sphere = new THREE.SphereGeometry(0.8, 30, 30);
+const torus = new THREE.TorusGeometry(0.5, 0.2, 16, 100);
+const torusKnot = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 100);
+
+// non-environment reacting materials
+const basicMaterial = new THREE.MeshBasicMaterial({
+  color: 0x049ef4,
+  wireframe: true,
+});
+const matCapMaterial = new THREE.MeshMatcapMaterial({
+  color: 0x049ef4,
+});
+const meshDepthMaterial = new THREE.MeshBasicMaterial({
+  color: 0x049ef4,
   wireframe: true,
 });
 
-// initialize a mesh
-const mesh = new THREE.Mesh(cubeGeometry, material);
-scene.add(mesh); // add mesh to scene
+// Environment Reacting Materials
+const lambertMaterial = new THREE.MeshLambertMaterial({ color: 0x049ef4 });
+const meshPhongMaterial = new THREE.MeshPhongMaterial({
+  color: 0x049ef4,
+  shininess: 100,
+});
+const standardMaterial = new THREE.MeshStandardMaterial({
+  color: 0x049ef4,
+  metalness: 0.8,
+  roughness: 0.1,
+});
+const physicalMaterial = new THREE.MeshPhysicalMaterial({
+  color: 0x049ef4,
+  metalness: 1,
+  roughness: 0.3,
+  reflectivity: 1,
+  clearcoat: 1,
+});
 
-mesh.position.x = -1;
-mesh.position.y = 1;
-mesh.position.z = -1;
+// initialize a mesh
+const basicCubeMesh = new THREE.Mesh(cube, basicMaterial);
+const matCapSphereMesh = new THREE.Mesh(sphere, matCapMaterial);
+const depthTorusMesh = new THREE.Mesh(torus, meshDepthMaterial);
+const lambertSphereMesh = new THREE.Mesh(sphere, lambertMaterial);
+const phongCubeMesh = new THREE.Mesh(cube, meshPhongMaterial);
+const standardTorusMesh = new THREE.Mesh(torus, standardMaterial);
+const physicalTorusKnotMesh = new THREE.Mesh(torusKnot, physicalMaterial);
+
+// create group for non-environment reacting mesh
+const nonEnvGroup = new THREE.Group();
+nonEnvGroup.add(basicCubeMesh, matCapSphereMesh, depthTorusMesh);
+
+// create group for environment reacting mesh
+const envGroup = new THREE.Group();
+envGroup.add(
+  lambertSphereMesh,
+  phongCubeMesh,
+  standardTorusMesh,
+  physicalTorusKnotMesh
+);
+
+nonEnvGroup.position.y = 1.5;
+envGroup.position.y = -1.5;
+basicCubeMesh.position.x = -2;
+depthTorusMesh.position.x = 2;
+
+scene.add(nonEnvGroup, envGroup); // add groups to scene
 
 // initialize a camera
 const camera = new THREE.PerspectiveCamera(
