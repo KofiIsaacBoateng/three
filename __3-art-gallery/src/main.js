@@ -51,9 +51,12 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setAnimationLoop(renderLoop);
 renderer.setPixelRatio(window.devicePixelRatio);
+renderer.toneMapping = THREE.NeutralToneMapping;
+renderer.toneMappingExposure = 2;
 document.body.appendChild(renderer.domElement);
 
 function renderLoop() {
+  // rootNode.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 
@@ -65,35 +68,42 @@ for (let i = 0; i < COUNT; i++) {
   baseNode.rotation.y = i * ((2 * Math.PI) / COUNT);
 
   const border = new THREE.Mesh(
-    new THREE.BoxGeometry(3.7, 2.7, 0.2),
-    new THREE.MeshBasicMaterial({ color: 0x303030 })
+    new THREE.BoxGeometry(3.2, 2.2, 0.01),
+    new THREE.MeshStandardMaterial({ color: 0x303030 })
   );
-  border.position.z = -5;
+  border.position.z = -4;
   baseNode.add(border);
 
   const art = new THREE.Mesh(
-    new THREE.BoxGeometry(3.5, 2.5, 0.2),
-    new THREE.MeshBasicMaterial({ map: image })
+    new THREE.BoxGeometry(3, 2, 0.2),
+    new THREE.MeshStandardMaterial({ map: image })
   );
-  art.position.z = -5;
+  art.position.z = -4;
   baseNode.add(art);
 
   const left = new THREE.Mesh(
     new THREE.BoxGeometry(0.3, 0.3, 0.01),
-    new THREE.MeshBasicMaterial({ map: leftArrow, transparent: true })
+    new THREE.MeshStandardMaterial({ map: leftArrow, transparent: true })
   );
-  left.position.set(-2, 0, -5);
+  left.position.set(-1.8, 0, -4);
   baseNode.add(left);
 
   const right = new THREE.Mesh(
     new THREE.BoxGeometry(0.3, 0.3, 0.01),
-    new THREE.MeshBasicMaterial({ map: rightArrow, transparent: true })
+    new THREE.MeshStandardMaterial({ map: rightArrow, transparent: true })
   );
-  right.position.set(2, 0, -5);
+  right.position.set(1.8, 0, -4);
   baseNode.add(right);
 
   rootNode.add(baseNode);
 }
+
+// add light
+const spotLight = new THREE.SpotLight(0xffffff, 100.0, 10.0, 0.65, 1);
+spotLight.position.set(0, 4, 0);
+spotLight.target.position.set(0, 1, -4);
+scene.add(spotLight);
+scene.add(spotLight.target);
 
 window.addEventListener("resize", (e) => {
   renderer.setSize(window.innerWidth, window.innerHeight);
