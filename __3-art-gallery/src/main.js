@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/Addons.js";
+import { OrbitControls, Reflector } from "three/examples/jsm/Addons.js";
 
 const images = [
   "socrates.jpg",
@@ -52,7 +52,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setAnimationLoop(renderLoop);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.toneMapping = THREE.NeutralToneMapping;
-renderer.toneMappingExposure = 2;
+renderer.toneMappingExposure = 1;
 document.body.appendChild(renderer.domElement);
 
 function renderLoop() {
@@ -69,7 +69,7 @@ for (let i = 0; i < COUNT; i++) {
 
   const border = new THREE.Mesh(
     new THREE.BoxGeometry(3.2, 2.2, 0.01),
-    new THREE.MeshStandardMaterial({ color: 0x303030 })
+    new THREE.MeshStandardMaterial({ color: 0x505050 })
   );
   border.position.z = -4;
   baseNode.add(border);
@@ -104,6 +104,16 @@ spotLight.position.set(0, 4, 0);
 spotLight.target.position.set(0, 1, -4);
 scene.add(spotLight);
 scene.add(spotLight.target);
+
+// mirror
+const mirror = new Reflector(new THREE.CircleGeometry(40, 64), {
+  color: 0x303030,
+  textureWidth: window.innerWidth * window.devicePixelRatio,
+  textureHeight: window.innerHeight * window.devicePixelRatio,
+});
+mirror.position.set(0, -1.1, 0);
+mirror.rotateX(-Math.PI / 2);
+scene.add(mirror);
 
 window.addEventListener("resize", (e) => {
   renderer.setSize(window.innerWidth, window.innerHeight);
