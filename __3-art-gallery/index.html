@@ -35,16 +35,17 @@
       h2 {
         font-weight: 100;
         transition: opacity ease-in-out 1s;
+        text-wrap: nowrap;
       }
 
       #title {
         font-weight: 200;
-        font-size: 3em;
+        font-size: clamp(2rem, 3vw + 1rem, 3rem);
       }
 
       #artist {
         font-weight: 100;
-        font-size: 8em;
+        font-size: clamp(3rem, 8vw + 1rem, 8rem);
         margin-top: -10px;
       }
     </style>

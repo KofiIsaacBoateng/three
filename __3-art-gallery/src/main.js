@@ -32,6 +32,8 @@ const artists = [
 // dom elements
 const titleElement = document.getElementById("title");
 const artistElement = document.getElementById("artist");
+titleElement.innerText = titles[0];
+artistElement.innerText = artists[0];
 
 // initiate texture loader
 const texture = new THREE.TextureLoader();
@@ -66,6 +68,7 @@ function renderLoop() {
 }
 
 const COUNT = images.length;
+let currentIndex = 0;
 for (let i = 0; i < COUNT; i++) {
   const image = texture.load(images[i]);
 
@@ -74,7 +77,7 @@ for (let i = 0; i < COUNT; i++) {
 
   const border = new THREE.Mesh(
     new THREE.BoxGeometry(3.2, 2.2, 0.01),
-    new THREE.MeshStandardMaterial({ color: 0x505050 })
+    new THREE.MeshStandardMaterial({ color: 0x303030 })
   );
   border.position.z = -4;
   baseNode.add(border);
@@ -114,7 +117,7 @@ scene.add(spotLight.target);
 
 // mirror
 const mirror = new Reflector(new THREE.CircleGeometry(40, 64), {
-  color: 0x505050,
+  color: 0x303030,
   textureWidth: window.innerWidth * window.devicePixelRatio,
   textureHeight: window.innerHeight * window.devicePixelRatio,
 });
@@ -122,6 +125,34 @@ const mirror = new Reflector(new THREE.CircleGeometry(40, 64), {
 mirror.position.set(0, -1.1, 0);
 mirror.rotateX(-Math.PI / 2);
 scene.add(mirror);
+
+function rotateGallery(direction, index) {
+  const angle = (2 * Math.PI) / COUNT;
+  const currentRotation = rootNode.rotation.y;
+  const newIndex =
+    direction === -1
+      ? index === 0
+        ? COUNT - 1
+        : index - 1
+      : index === COUNT - 1
+      ? 0
+      : index + 1;
+
+  titleElement.style.opacity = 0;
+  artistElement.style.opacity = 0;
+  new Tween(rootNode.rotation)
+    .to({ y: currentRotation + direction * angle }, 1500)
+    .easing(Easing.Quadratic.InOut)
+    .start()
+    .onComplete(() => {
+      titleElement.style.opacity = 1;
+      artistElement.style.opacity = 1;
+      titleElement.innerText = titles[newIndex];
+      artistElement.innerText = artists[newIndex];
+    });
+
+  currentIndex = newIndex;
+}
 
 window.addEventListener("resize", (e) => {
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -154,31 +185,50 @@ window.addEventListener("click", (e) => {
   }
 });
 
-function rotateGallery(direction, index) {
-  const angle = (2 * Math.PI) / COUNT;
-  const currentRotation = rootNode.rotation.y;
-  const newIndex =
-    direction === -1
-      ? index === 0
-        ? COUNT - 1
-        : index - 1
-      : index === COUNT - 1
-      ? 0
-      : index + 1;
+window.addEventListener("mousemove", (e) => {
+  const mouse = new THREE.Vector2();
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-  titleElement.style.opacity = 0;
-  artistElement.style.opacity = 0;
-  new Tween(rootNode.rotation)
-    .to({ y: currentRotation + direction * angle }, 1500)
-    .easing(Easing.Quadratic.InOut)
-    .start()
-    .onComplete(() => {
-      titleElement.style.opacity = 1;
-      artistElement.style.opacity = 1;
-      titleElement.innerText = titles[newIndex];
-      artistElement.innerText = artists[newIndex];
-    });
-}
+  const raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(mouse, camera);
 
-titleElement.innerText = titles[0];
-artistElement.innerText = artists[0];
+  const intersection = raycaster.intersectObjects(rootNode.children, true);
+  if (intersection.length > 0) {
+    const [name, _] = intersection[0].object.name.split("-");
+    if (name === "left" || name === "right") {
+      document.body.style.cursor = "pointer";
+      return;
+    }
+  }
+
+  document.body.style.cursor = "auto";
+});
+
+let scrollTimeout;
+window.addEventListener("wheel", (e) => {
+  clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    if (e.deltaY > 0) {
+      rotateGallery(1, currentIndex);
+      return;
+    }
+
+    rotateGallery(-1, currentIndex);
+  }, 500);
+});
+
+let keydownTimeout;
+window.addEventListener("keydown", (e) => {
+  clearTimeout(keydownTimeout);
+  keydownTimeout = setTimeout(() => {
+    if (!e.code.startsWith("Arrow")) return;
+    if (e.code === "ArrowRight" || e.code === "ArrowUp") {
+      rotateGallery(1, currentIndex);
+      return;
+    }
+
+    rotateGallery(-1, currentIndex);
+  }, 500);
+});
