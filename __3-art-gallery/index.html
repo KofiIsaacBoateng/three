@@ -5,15 +5,55 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Art Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
       *,
       html,
       body {
         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .texts {
+        position: absolute;
+        top: 5vh;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #fffd;
+        background-color: transparent;
+        font-family: "Inter", sans-serif;
+      }
+
+      h1,
+      h2 {
+        font-weight: 100;
+        transition: opacity ease-in-out 1s;
+      }
+
+      #title {
+        font-weight: 200;
+        font-size: 3em;
+      }
+
+      #artist {
+        font-weight: 100;
+        font-size: 8em;
+        margin-top: -10px;
       }
     </style>
   </head>
   <body>
+    <div class="texts">
+      <h1 id="title"></h1>
+      <h2 id="artist"></h2>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

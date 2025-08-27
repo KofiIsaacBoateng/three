@@ -29,6 +29,10 @@ const artists = [
   "George Seurat",
 ];
 
+// dom elements
+const titleElement = document.getElementById("title");
+const artistElement = document.getElementById("artist");
+
 // initiate texture loader
 const texture = new THREE.TextureLoader();
 const leftArrow = texture.load(`left.png`);
@@ -66,7 +70,7 @@ for (let i = 0; i < COUNT; i++) {
   const image = texture.load(images[i]);
 
   const baseNode = new THREE.Object3D();
-  baseNode.rotation.y = i * ((2 * Math.PI) / COUNT);
+  baseNode.rotation.y = -1 * i * ((2 * Math.PI) / COUNT);
 
   const border = new THREE.Mesh(
     new THREE.BoxGeometry(3.2, 2.2, 0.01),
@@ -153,8 +157,28 @@ window.addEventListener("click", (e) => {
 function rotateGallery(direction, index) {
   const angle = (2 * Math.PI) / COUNT;
   const currentRotation = rootNode.rotation.y;
+  const newIndex =
+    direction === -1
+      ? index === 0
+        ? COUNT - 1
+        : index - 1
+      : index === COUNT - 1
+      ? 0
+      : index + 1;
+
+  titleElement.style.opacity = 0;
+  artistElement.style.opacity = 0;
   new Tween(rootNode.rotation)
     .to({ y: currentRotation + direction * angle }, 1500)
     .easing(Easing.Quadratic.InOut)
-    .start();
+    .start()
+    .onComplete(() => {
+      titleElement.style.opacity = 1;
+      artistElement.style.opacity = 1;
+      titleElement.innerText = titles[newIndex];
+      artistElement.innerText = artists[newIndex];
+    });
 }
+
+titleElement.innerText = titles[0];
+artistElement.innerText = artists[0];
