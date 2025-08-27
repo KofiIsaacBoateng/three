@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls, Reflector } from "three/examples/jsm/Addons.js";
+import { Easing, Tween, update as updateTween } from "tween";
 
 const images = [
   "socrates.jpg",
@@ -56,7 +57,7 @@ renderer.toneMappingExposure = 1;
 document.body.appendChild(renderer.domElement);
 
 function renderLoop() {
-  // rootNode.rotation.y += 0.01;
+  updateTween();
   renderer.render(scene, camera);
 }
 
@@ -86,6 +87,7 @@ for (let i = 0; i < COUNT; i++) {
     new THREE.MeshStandardMaterial({ map: leftArrow, transparent: true })
   );
   left.position.set(-1.8, 0, -4);
+  left.name = `left-${i}`;
   baseNode.add(left);
 
   const right = new THREE.Mesh(
@@ -93,6 +95,7 @@ for (let i = 0; i < COUNT; i++) {
     new THREE.MeshStandardMaterial({ map: rightArrow, transparent: true })
   );
   right.position.set(1.8, 0, -4);
+  right.name = `right-${i}`;
   baseNode.add(right);
 
   rootNode.add(baseNode);
@@ -111,6 +114,7 @@ const mirror = new Reflector(new THREE.CircleGeometry(40, 64), {
   textureWidth: window.innerWidth * window.devicePixelRatio,
   textureHeight: window.innerHeight * window.devicePixelRatio,
 });
+
 mirror.position.set(0, -1.1, 0);
 mirror.rotateX(-Math.PI / 2);
 scene.add(mirror);
@@ -119,4 +123,38 @@ window.addEventListener("resize", (e) => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+  mirror
+    .getRenderTarget()
+    .setSize(
+      window.innerWidth * window.devicePixelRatio,
+      window.innerHeight * window.devicePixelRatio
+    );
 });
+
+window.addEventListener("click", (e) => {
+  const mouse = new THREE.Vector2();
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+  const raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(mouse, camera);
+  const intersection = raycaster.intersectObjects(rootNode.children, true);
+  if (intersection.length > 0) {
+    const [arrow, index] = intersection[0].object.name.split("-");
+    console.log(arrow, Number(index));
+    if (arrow === "left" || arrow === "right") {
+      const direction = arrow === "left" ? -1 : 1;
+
+      rotateGallery(direction, Number(index));
+    }
+  }
+});
+
+function rotateGallery(direction, index) {
+  const angle = (2 * Math.PI) / COUNT;
+  const currentRotation = rootNode.rotation.y;
+  new Tween(rootNode.rotation)
+    .to({ y: currentRotation + direction * angle }, 1500)
+    .easing(Easing.Quadratic.InOut)
+    .start();
+}
