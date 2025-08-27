@@ -107,7 +107,7 @@ scene.add(spotLight.target);
 
 // mirror
 const mirror = new Reflector(new THREE.CircleGeometry(40, 64), {
-  color: 0x303030,
+  color: 0x505050,
   textureWidth: window.innerWidth * window.devicePixelRatio,
   textureHeight: window.innerHeight * window.devicePixelRatio,
 });
