@@ -56,7 +56,7 @@ const planetMeshes = planets.map((planet) => {
 });
 
 // add light
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
 scene.add(ambientLight);
 
 const pointLight = new THREE.PointLight(0xffffff, 1000);
@@ -84,7 +84,7 @@ renderer.setAnimationLoop(renderLoop);
 const orbitals = new OrbitControls(camera, renderer.domElement);
 orbitals.enableDamping = true;
 orbitals.maxDistance = 200;
-orbitals.minDistance = 5;
+orbitals.minDistance = 1;
 
 // add renderer to dom (must be done after orbit controls)
 document.body.appendChild(renderer.domElement);

@@ -5,24 +5,37 @@ const textureLoader = new THREE.TextureLoader();
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 cubeTextureLoader.setPath("templates/cubeMap/");
 
+const mercury = textureLoader.load("templates/mercury.jpg");
+mercury.colorSpace = THREE.SRGBColorSpace;
+const venus = textureLoader.load("templates/venus.jpg");
+venus.colorSpace = THREE.SRGBColorSpace;
+const earth = textureLoader.load("templates/earth.jpg");
+earth.colorSpace = THREE.SRGBColorSpace;
+const mars = textureLoader.load("templates/mars.jpg");
+mars.colorSpace = THREE.SRGBColorSpace;
+const moon = textureLoader.load("templates/moon.jpg");
+moon.colorSpace = THREE.SRGBColorSpace;
+const sun = textureLoader.load("templates/sun.jpg");
+sun.colorSpace = THREE.SRGBColorSpace;
+
 export const mercuryMaterial = new THREE.MeshStandardMaterial({
-  map: textureLoader.load("templates/mercury.jpg"),
+  map: mercury,
 });
 export const venusMaterial = new THREE.MeshStandardMaterial({
-  map: textureLoader.load("templates/venus.jpg"),
+  map: venus,
 });
 export const earthMaterial = new THREE.MeshStandardMaterial({
-  map: textureLoader.load("templates/earth.jpg"),
+  map: earth,
 });
 export const marsMaterial = new THREE.MeshStandardMaterial({
-  map: textureLoader.load("templates/mars.jpg"),
+  map: mars,
 });
 export const moonMaterial = new THREE.MeshStandardMaterial({
-  map: textureLoader.load("templates/moon.jpg"),
+  map: moon,
 });
 
 export const sunMaterial = new THREE.MeshStandardMaterial({
-  map: textureLoader.load("templates/sun.jpg"),
+  map: sun,
 });
 
 export const cubeMap = cubeTextureLoader.load([
