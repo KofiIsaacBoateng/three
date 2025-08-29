@@ -26,10 +26,10 @@ export const sunMaterial = new THREE.MeshStandardMaterial({
 });
 
 export const cubeMap = cubeTextureLoader.load([
-  "px.png",
   "nx.png",
-  "py.png",
+  "px.png",
   "ny.png",
+  "py.png",
   "nz.png",
   "pz.png",
 ]);
@@ -61,7 +61,7 @@ export default [
       {
         name: "Moon",
         radius: 0.3,
-        distance: 3,
+        distance: 1.5,
         speed: 0.015,
       },
     ],
@@ -76,13 +76,13 @@ export default [
       {
         name: "Phobos",
         radius: 0.1,
-        distance: 2,
+        distance: 1,
         speed: 0.02,
       },
       {
         name: "Deimos",
         radius: 0.2,
-        distance: 3,
+        distance: 2,
         speed: 0.015,
         color: 0xffffff,
       },
