@@ -4,22 +4,26 @@ import { PointerLockControls } from "three/examples/jsm/Addons.js";
 import addWallsToScene from "./walls";
 import { addPaintingToScene } from "./paintings";
 import createLights from "./lights";
+import "./controls";
+import { initiateControls } from "./controls";
 
 // initialize scene
 const scene = new THREE.Scene();
 
 // initialize camera
-const camera = new THREE.PerspectiveCamera(
+export const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
 );
-camera.position.z = 74;
-camera.position.y = -10;
+camera.position.set(0, 0, 74);
 
 // add lights
 createLights(scene);
+
+// initiate controls
+initiateControls();
 
 // initialize renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -29,20 +33,7 @@ renderer.toneMapping = THREE.NeutralToneMapping;
 renderer.setAnimationLoop(renderLoop);
 document.body.appendChild(renderer.domElement);
 
-// initialize orbit controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.position0.set(0, 0, 0);
-controls.enableDamping = true;
-controls.minDistance = 0;
-controls.maxDistance = 70;
-controls.zoomSpeed = 3;
-
-// initialize pointer lock controls
-// const pointerControls = new PointerLockControls(camera, renderer.domElement);
-
 function renderLoop() {
-  controls.update();
-  //   pointerControls.update();
   renderer.render(scene, camera);
 }
 
