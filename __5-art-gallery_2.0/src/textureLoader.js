@@ -31,15 +31,16 @@ const floorLight = [
 
 const textureLoader = new THREE.TextureLoader();
 
-const loadTexture = (url) => {
-  return textureLoader.load(url);
+export const loadTexture = (url) => {
+  const texture = textureLoader.load(url);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
 };
 
 const loadTextures = (urls) => {
   return urls.map((url) => {
     const texture = loadTexture(url.texture);
     texture.repeat.set(2, 2);
-    texture.colorSpace = THREE.SRGBColorSpace;
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     return { ...url, texture };

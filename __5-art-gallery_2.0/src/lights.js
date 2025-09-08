@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 export default (scene) => {
   const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-  directionalLight.position.set(0, 20, 0);
+  directionalLight.position.set(-30, -10, 0);
   directionalLight.castShadow = true;
   directionalLight.receiveShadow = true;
   scene.add(directionalLight);
@@ -37,6 +37,6 @@ export default (scene) => {
   directionalLight5.receiveShadow = true;
   scene.add(directionalLight5);
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
   scene.add(ambientLight);
 };

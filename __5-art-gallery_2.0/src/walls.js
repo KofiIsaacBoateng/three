@@ -95,6 +95,8 @@ export function createWall(
   const material = createMaterial(textures, name === "ceiling");
   const wall = new THREE.Mesh(geometry, material);
   wall.name = name;
+  wall.castShadow = true;
+  wall.receiveShadow = true;
   wall.position.set(position.x, position.y, position.z);
   wall.rotation.set(rotation.x, rotation.y, rotation.z);
   return wall;
