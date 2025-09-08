@@ -3,7 +3,7 @@ import * as THREE from "three";
 const walls = [
   {
     name: "left-wall",
-    width: 100,
+    width: 150,
     height: 50,
     color: 0x071739,
     position: new THREE.Vector3(-50, 0, 0),
@@ -11,7 +11,7 @@ const walls = [
   },
   {
     name: "right-wall",
-    width: 100,
+    width: 150,
     height: 50,
     color: 0x071739,
     position: new THREE.Vector3(50, 0, 0),
@@ -22,7 +22,7 @@ const walls = [
     width: 100,
     height: 50,
     color: 0x071739,
-    position: new THREE.Vector3(0, 0, -50),
+    position: new THREE.Vector3(0, 0, -75),
     rotation: new THREE.Vector3(0, 0, 0),
   },
   {
@@ -30,13 +30,13 @@ const walls = [
     width: 100,
     height: 50,
     color: 0x071739,
-    position: new THREE.Vector3(0, 0, 50),
+    position: new THREE.Vector3(0, 0, 75),
     rotation: new THREE.Vector3(0, Math.PI, 0),
   },
   {
     name: "floor",
     width: 100,
-    height: 100,
+    height: 150,
     color: 0xe3c390,
     position: new THREE.Vector3(0, -25, 0),
     rotation: new THREE.Vector3(-Math.PI / 2, 0, 0),
@@ -44,7 +44,7 @@ const walls = [
   {
     name: "ceiling",
     width: 100,
-    height: 100,
+    height: 150,
     color: 0x4b6382,
     position: new THREE.Vector3(0, 25, 0),
     rotation: new THREE.Vector3(Math.PI / 2, 0, 0),
@@ -64,7 +64,7 @@ export function createWall(width, height, color, position, rotation) {
 }
 
 export default function addWallsToScene(scene) {
-  walls.forEach((wallData) => {
+  const wallMeshes = walls.map((wallData) => {
     const wall = createWall(
       wallData.width,
       wallData.height,
@@ -74,7 +74,9 @@ export default function addWallsToScene(scene) {
     );
     wall.name = wallData.name;
     scene.add(wall);
+
+    return wall;
   });
 
-  return walls;
+  return wallMeshes;
 }

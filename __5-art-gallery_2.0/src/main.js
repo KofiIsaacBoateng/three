@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { PointerLockControls } from "three/examples/jsm/Addons.js";
 import addWallsToScene from "./walls";
+import { addPaintingToScene } from "./paintings";
 
 // initialize scene
 const scene = new THREE.Scene();
@@ -13,7 +14,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.z = 45;
+camera.position.z = 74;
 
 // initialize renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -30,7 +31,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.position0.set(0, 0, 0);
 controls.enableDamping = true;
 controls.minDistance = 0;
-controls.maxDistance = 50;
+controls.maxDistance = 70;
 controls.zoomSpeed = 3;
 
 // initialize pointer lock controls
@@ -49,5 +50,6 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-// add a objects here
-const walls = addWallsToScene(scene);
+// add objects to scene
+const walls = addWallsToScene(scene); // walls
+const paintings = addPaintingToScene(scene); // paintings
