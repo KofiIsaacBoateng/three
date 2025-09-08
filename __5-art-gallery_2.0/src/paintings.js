@@ -5,7 +5,7 @@ const paintings = [
   {
     name: "Sunset",
     artist: "Alice",
-    width: 15,
+    width: 20,
     height: 15,
     position: new THREE.Vector3(-30, 5, -74.85),
     rotation: new THREE.Euler(0, 0, 0),
@@ -15,7 +15,7 @@ const paintings = [
   {
     name: "Ocean",
     artist: "Carol",
-    width: 15,
+    width: 20,
     height: 15,
     position: new THREE.Vector3(0, 5, -74.85),
     rotation: new THREE.Euler(0, 0, 0),
@@ -24,7 +24,7 @@ const paintings = [
   {
     name: "Cityscape",
     artist: "Eve",
-    width: 15,
+    width: 20,
     height: 15,
     position: new THREE.Vector3(30, 5, -74.85),
     rotation: new THREE.Euler(0, 0, 0),
@@ -35,16 +35,16 @@ const paintings = [
   {
     name: "Abstract",
     artist: "Frank",
-    width: 15,
+    width: 25,
     height: 15,
-    position: new THREE.Vector3(49.85, 5, -30),
+    position: new THREE.Vector3(49.85, 5, -40),
     rotation: new THREE.Euler(0, -Math.PI / 2, 0),
     wall: "right",
   },
   {
     name: "Still Life",
     artist: "Heidi",
-    width: 15,
+    width: 25,
     height: 15,
     position: new THREE.Vector3(49.85, 5, 0),
     rotation: new THREE.Euler(0, -Math.PI / 2, 0),
@@ -53,9 +53,9 @@ const paintings = [
   {
     name: "Night Sky",
     artist: "Judy",
-    width: 15,
+    width: 25,
     height: 15,
-    position: new THREE.Vector3(49.85, 5, 30),
+    position: new THREE.Vector3(49.85, 5, 40),
     rotation: new THREE.Euler(0, -Math.PI / 2, 0),
     wall: "right",
   },
@@ -64,7 +64,7 @@ const paintings = [
   {
     name: "Flowers",
     artist: "Karl",
-    width: 15,
+    width: 20,
     height: 15,
     position: new THREE.Vector3(30, 5, 74.85),
     rotation: new THREE.Euler(0, Math.PI, 0),
@@ -73,7 +73,7 @@ const paintings = [
   {
     name: "Desert",
     artist: "Mallory",
-    width: 15,
+    width: 20,
     height: 15,
     position: new THREE.Vector3(0, 5, 74.85),
     rotation: new THREE.Euler(0, Math.PI, 0),
@@ -82,7 +82,7 @@ const paintings = [
   {
     name: "Winter",
     artist: "Olivia",
-    width: 15,
+    width: 20,
     height: 15,
     position: new THREE.Vector3(-30, 5, 74.85),
     rotation: new THREE.Euler(0, Math.PI, 0),
@@ -93,16 +93,16 @@ const paintings = [
   {
     name: "Spring",
     artist: "Peggy",
-    width: 15,
+    width: 25,
     height: 15,
-    position: new THREE.Vector3(-49.85, 5, 30),
+    position: new THREE.Vector3(-49.85, 5, 40),
     rotation: new THREE.Euler(0, Math.PI / 2, 0),
     wall: "left",
   },
   {
     name: "Autumn",
     artist: "Rupert",
-    width: 15,
+    width: 25,
     height: 15,
     position: new THREE.Vector3(-49.85, 5, 0),
     rotation: new THREE.Euler(0, Math.PI / 2, 0),
@@ -111,9 +111,9 @@ const paintings = [
   {
     name: "Dusk",
     artist: "Trent",
-    width: 15,
+    width: 25,
     height: 15,
-    position: new THREE.Vector3(-49.85, 5, -30),
+    position: new THREE.Vector3(-49.85, 5, -40),
     rotation: new THREE.Euler(0, Math.PI / 2, 0),
     wall: "left",
   },
@@ -130,10 +130,10 @@ export function createPainting(
 ) {
   // geometries
   const artGeometry = new THREE.PlaneGeometry(width, height);
-  const frameGeometry = new THREE.BoxGeometry(width + 0.5, height + 0.5, 0.1);
+  const frameGeometry = new THREE.BoxGeometry(width + 1, height + 1, 0.1);
   //materials
   const artMeshMaterial = new THREE.MeshBasicMaterial({ color: 0x4b6382 });
-  const frameMeshMaterial = new THREE.MeshBasicMaterial({ color: 0xe3c390 });
+  const frameMeshMaterial = new THREE.MeshBasicMaterial({ color: 0x777777 });
 
   // mesh
   const artMesh = new THREE.Mesh(artGeometry, artMeshMaterial);

@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { PointerLockControls } from "three/examples/jsm/Addons.js";
 import addWallsToScene from "./walls";
 import { addPaintingToScene } from "./paintings";
+import createLights from "./lights";
 
 // initialize scene
 const scene = new THREE.Scene();
@@ -15,14 +16,16 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 camera.position.z = 74;
+camera.position.y = -10;
+
+// add lights
+createLights(scene);
 
 // initialize renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.NeutralToneMapping;
-renderer.toneMappingExposure = 1.5;
-// renderer.outputEncoding = THREE.sRGBEncoding
 renderer.setAnimationLoop(renderLoop);
 document.body.appendChild(renderer.domElement);
 
