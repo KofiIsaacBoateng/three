@@ -68,7 +68,6 @@ const ModelSwitcher = ({
         rotation={[0, 0, 0]}
         polar={[-Math.PI / 3, Math.PI / 3]}
         azimuth={[-Math.PI / 1.4, Math.PI / 2]}
-        config={{ mass: 1, tension: 0, friction: 26 }}
       >
         <group ref={smallMacBookRef}>
           <MacBookModel14 scale={isMobile ? 0.03 : 0.06} />
@@ -81,7 +80,6 @@ const ModelSwitcher = ({
         rotation={[0, 0, 0]}
         polar={[-Math.PI / 3, Math.PI / 3]}
         azimuth={[-Math.PI / 1.4, Math.PI / 2]}
-        config={{ mass: 1, tension: 0, friction: 26 }}
       >
         <group ref={largeMacBookRef}>
           <MacBookModel16 scale={isMobile ? 0.05 : 0.08} />
