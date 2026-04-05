@@ -8,14 +8,29 @@ Source: https://sketchfab.com/3d-models/macbook-pro-m3-16-inch-2024-8e34fc2b3031
 Title: macbook pro M3 16 inch 2024
 */
 
-import React from "react";
-import { useGLTF, useTexture } from "@react-three/drei";
-import { SRGBColorSpace } from "three";
+import React, { useEffect } from "react";
+import { useGLTF, useVideoTexture } from "@react-three/drei";
+import { Color, Mesh } from "three";
+import useMacBookStore from "../../store";
+import { noChangeParts } from "../../constants";
 
 export default function MacBookModel(props) {
-  const { nodes, materials } = useGLTF("/models/macbook-transformed.glb");
-  const texture = useTexture("/screen.png");
-  texture.colorSpace = SRGBColorSpace;
+  const { color, texture } = useMacBookStore();
+  const { nodes, materials, scene } = useGLTF(
+    "/models/macbook-transformed.glb",
+  );
+  const screen = useVideoTexture(texture);
+
+  useEffect(() => {
+    scene.traverse((child) => {
+      if (child instanceof Mesh) {
+        if (!noChangeParts.includes(child.name)) {
+          child.material.color = new Color(color);
+        }
+      }
+    });
+  }, [scene, color]);
+
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -108,7 +123,7 @@ export default function MacBookModel(props) {
         material={materials.sfCQkHOWyrsLmor}
         rotation={[Math.PI / 2, 0, 0]}
       >
-        <meshBasicMaterial map={texture} />
+        <meshBasicMaterial map={screen} />
       </mesh>
       <mesh
         geometry={nodes.Object_127.geometry}
