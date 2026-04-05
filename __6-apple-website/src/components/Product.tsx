@@ -8,7 +8,7 @@ import { useMediaQuery } from "react-responsive";
 
 const Product = () => {
   const { setColor, color, setScale, scale } = useMacBookStore();
-  const isMobile = useMediaQuery({ maxWidth: "1024" });
+  const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
   return (
     <section id="product-viewer">
