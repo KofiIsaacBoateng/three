@@ -81,7 +81,7 @@ section {
   }
 
   .hero-layout {
-    @apply relative z-10 xl:mt-20 mt-32 md:h-dvh h-[80vh] flex xl:items-center items-start justify-center;
+    @apply relative z-10 xl:mt-20 mt-20 xl:h-dvh min-h-[80vh] flex flex-col xl:flex-row xl:items-center items-start xl:justify-center xl:gap-5 justify-between;
   }
 
   .hero-text {
@@ -90,7 +90,7 @@ section {
       @apply size-8 md:size-10 object-contain;
     }
     .slide {
-      @apply absolute pt-0 px-2 md:px-5 py-[30px] h-[48px] md:h-[78px] md:translate-y-1 translate-y-0 overflow-hidden;
+      @apply absolute pt-0 px-2 md:px-5 py-7.5 h-12 md:h-19.5 md:translate-y-1 translate-y-0 overflow-hidden;
     }
   }
 
@@ -99,11 +99,11 @@ section {
   }
 
   .hero-3d-layout {
-    @apply xl:w-[70%] w-full h-full min-h-[50vh] absolute xl:-top-20 top-24 xl:-right-20 right-0;
+    @apply w-full xl:h-full h-[70vh];
   }
 
   .navbar {
-    @apply fixed w-full left-1/2 py-5 px-5 md:px-20 -translate-x-1/2 z-[100] transition-all duration-300 ease-in-out;
+    @apply fixed w-full left-1/2 py-5 px-5 md:px-20 -translate-x-1/2 z-100 transition-all duration-300 ease-in-out;
 
     &.scrolled {
       @apply top-0 bg-black;
