@@ -8,6 +8,8 @@ import FeatureCards from "./sections/FeatureCards";
 import Experience from "./sections/Experience";
 import TechStack from "./sections/TechStack";
 import Testimonials from "./sections/Testimonials";
+import Footer from "./sections/Footer";
+import Contacts from "./sections/Contacts";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 const App = () => {
@@ -21,6 +23,8 @@ const App = () => {
       <Experience />
       <TechStack />
       <Testimonials />
+      <Contacts />
+      <Footer />
     </>
   );
 };
