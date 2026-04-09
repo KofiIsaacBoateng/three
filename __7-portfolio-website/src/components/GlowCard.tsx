@@ -1,21 +1,12 @@
 import { useRef, type MouseEvent } from "react";
 
-interface Card {
-  review: string;
-  imgPath: string;
-  logoPath: string;
-  title: string;
-  date: string;
-  responsibilities: string[];
-}
-
 const GlowCard = ({
   children,
   card,
   index,
 }: {
   children: React.ReactNode;
-  card: Card;
+  card: Record<string, string>;
   index: number;
 }) => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -41,7 +32,7 @@ const GlowCard = ({
       ref={(el) => {
         cardRefs.current[index] = el;
       }}
-      className="card card-border timeline-card rounded-xl p-10"
+      className="card card-border timeline-card rounded-xl p-10 mb-5 break-inside-avoid-column"
       onMouseMove={handleMouseMove}
     >
       <div className="glow" />

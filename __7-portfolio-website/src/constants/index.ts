@@ -1,4 +1,4 @@
-const navLinks = [
+const navLinks: { name: string; link: string }[] = [
   {
     name: "Work",
     link: "#work",
@@ -17,7 +17,7 @@ const navLinks = [
   },
 ];
 
-const words = [
+const words: { text: string; imgPath: string }[] = [
   { text: "Ideas", imgPath: "/images/ideas.svg" },
   { text: "Concepts", imgPath: "/images/concepts.svg" },
   { text: "Designs", imgPath: "/images/designs.svg" },
@@ -28,14 +28,14 @@ const words = [
   { text: "Code", imgPath: "/images/code.svg" },
 ];
 
-const counterItems = [
+const counterItems: { value: number; suffix: string; label: string }[] = [
   { value: 15, suffix: "+", label: "Years of Experience" },
   { value: 200, suffix: "+", label: "Satisfied Clients" },
   { value: 108, suffix: "+", label: "Completed Projects" },
   { value: 90, suffix: "%", label: "Client Retention Rate" },
 ];
 
-const logoIconsList = [
+const logoIconsList: { imgPath: string }[] = [
   {
     imgPath: "/images/logos/company-logo-1.png",
   },
@@ -71,7 +71,7 @@ const logoIconsList = [
   },
 ];
 
-const abilities = [
+const abilities: { imgPath: string; title: string; desc: string }[] = [
   {
     imgPath: "/images/seo.png",
     title: "Quality Focus",
@@ -89,7 +89,7 @@ const abilities = [
   },
 ];
 
-const techStackImgs = [
+const techStackImgs: { name: string; imgPath: string }[] = [
   {
     name: "React Developer",
     imgPath: "/images/logos/react.png",
@@ -112,7 +112,12 @@ const techStackImgs = [
   },
 ];
 
-const techStackIcons = [
+const techStackIcons: {
+  name: string;
+  modelPath: string;
+  scale: number;
+  rotation: [number, number, number];
+}[] = [
   {
     name: "React Developer",
     modelPath: "/models/react_logo-transformed.glb",
@@ -145,7 +150,14 @@ const techStackIcons = [
   },
 ];
 
-const expCards = [
+const expCards: {
+  review: string;
+  imgPath: string;
+  logoPath: string;
+  title: string;
+  date: string;
+  responsibilities: string[];
+}[] = [
   {
     review:
       "Adrian brought creativity and technical expertise to the team, significantly improving our frontend performance. His work has been invaluable in delivering faster experiences.",
@@ -187,7 +199,7 @@ const expCards = [
   },
 ];
 
-const expLogos = [
+const expLogos: { name: string; imgPath: string }[] = [
   {
     name: "logo1",
     imgPath: "/images/logo1.png",
@@ -202,7 +214,12 @@ const expLogos = [
   },
 ];
 
-const testimonials = [
+const testimonials: {
+  name: string;
+  mentions: string;
+  review: string;
+  imgPath: string;
+}[] = [
   {
     name: "Esther Howard",
     mentions: "@estherhoward",
@@ -247,7 +264,7 @@ const testimonials = [
   },
 ];
 
-const socialImgs = [
+const socialImgs: { name: string; url: string; imgPath: string }[] = [
   {
     name: "insta",
     url: "https://www.instagram.com/",
