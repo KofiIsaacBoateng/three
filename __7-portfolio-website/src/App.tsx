@@ -5,6 +5,7 @@ import { ScrollTrigger, SplitText } from "gsap/all";
 import NavBar from "./components/NavBar";
 import LogoDisplay from "./components/LogoDisplay";
 import FeatureCards from "./sections/FeatureCards";
+import Experience from "./sections/Experience";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Showcase />
       <LogoDisplay />
       <FeatureCards />
+      <Experience />
     </>
   );
 };
