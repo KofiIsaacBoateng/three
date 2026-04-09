@@ -3,6 +3,8 @@ import Hero from "./sections/Hero";
 import Showcase from "./sections/Showcase";
 import { ScrollTrigger, SplitText } from "gsap/all";
 import NavBar from "./components/NavBar";
+import LogoDisplay from "./components/LogoDisplay";
+import FeatureCards from "./sections/FeatureCards";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 const App = () => {
@@ -11,6 +13,8 @@ const App = () => {
       <NavBar />
       <Hero />
       <Showcase />
+      <LogoDisplay />
+      <FeatureCards />
     </>
   );
 };
