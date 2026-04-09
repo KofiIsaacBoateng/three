@@ -1,4 +1,3 @@
-import CountUp from "react-countup";
 import { counterItems } from "../constants";
 
 const AnimatedCounter = () => {
@@ -11,7 +10,6 @@ const AnimatedCounter = () => {
             className="bg-zinc-900 rounded-lg p-10 flex flex-col justify-center"
           >
             <div className="counter-number text-white text-5xl font-bold mb-2">
-              {/* <CountUp end={100} /> */}
               {item.suffix}
               {item.value}
             </div>

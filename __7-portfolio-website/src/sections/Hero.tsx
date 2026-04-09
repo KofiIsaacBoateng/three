@@ -62,7 +62,9 @@ const Hero = () => {
 
         {/**** RIGHT - 3D MODEL */}
         <figure className="relative z-5 xl:w-[60%] w-screen xl:h-screen xl:mt-0 -mt-20">
-          <div className="hero-3d-layout">{/* <HeroExperience /> */}</div>
+          <div className="hero-3d-layout">
+            <HeroExperience />
+          </div>
         </figure>
       </div>
 
